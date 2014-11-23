@@ -1,10 +1,12 @@
+;; http://iloveponies.github.io/120-hour-epic-sax-marathon/one-function-to-rule-them-all.html
+
 (ns one-function-to-rule-them-all)
 
 (defn concat-elements [a-seq]
-  :-)
+  (reduce concat [] a-seq))
 
 (defn str-cat [a-seq]
-  :-)
+  )
 
 (defn my-interpose [x a-seq]
   [:-])
