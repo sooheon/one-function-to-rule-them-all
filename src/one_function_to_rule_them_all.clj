@@ -6,19 +6,25 @@
   (reduce concat [] a-seq))
 
 (defn str-cat [a-seq]
-  )
+  (if (empty? a-seq)
+    ""
+    (reduce str (interpose " " a-seq))))
 
 (defn my-interpose [x a-seq]
-  [:-])
+  (if (empty? a-seq)
+    '()
+    (rest (reduce #(conj %1 x %2) [] a-seq))))
 
 (defn my-count [a-seq]
-  :-)
+  (let [count (fn [count e]
+                (inc count))]
+    (reduce count 0 a-seq)))
 
 (defn my-reverse [a-seq]
-  [:-])
+  (reduce conj '() a-seq))
 
 (defn min-max-element [a-seq]
-  [:-])
+  )
 
 (defn insert [sorted-seq n]
   [:-])
