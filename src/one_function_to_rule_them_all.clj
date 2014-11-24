@@ -24,28 +24,57 @@
   (reduce conj '() a-seq))
 
 (defn min-max-element [a-seq]
-  )
+  (let [[f & s] a-seq]
+    (cond
+     (not f) []
+     (not s) [f f]
+     :else (let [minmax (fn [acc e]
+                          [(min (first acc) e) (max (second acc) e)])]
+             (reduce minmax [(first a-seq) (second a-seq)] a-seq)))))
 
 (defn insert [sorted-seq n]
-  [:-])
+  (if (empty? sorted-seq)
+    (cons n sorted-seq)
+    (let [[x & xs] sorted-seq]
+      (cond
+       (< n x) (cons n sorted-seq)
+       :else (cons x (insert xs n))))))
 
 (defn insertion-sort [a-seq]
-  [:-])
+  (reduce insert [] a-seq))
+
+(defn toggle [a-set elem]
+  (if (contains? a-set elem)
+    (disj a-set elem)
+    (conj a-set elem)))
 
 (defn parity [a-seq]
-  [:-])
+  (let [odd-accum (fn [accum e]
+                    (toggle accum e))]
+    (reduce odd-accum #{} a-seq)))
 
-(defn minus [x]
-  :-)
+(defn minus
+  ([x] (- x))
+  ([x y] (- x y)))
 
-(defn count-params [x]
-  :-)
+(defn max
+  ([x] x)
+  ([x y] (if (> x y) x y))
+  ([x y & more]
+   (reduce max (max x y) more)))
 
-(defn my-* [x]
-  :-)
+(defn count-params [& more]
+  (count more))
+
+(defn my-*
+  ([] 1)
+  ([x] x)
+  ([x y] (* x y))
+  ([x y & more]
+   (reduce * (* x y) more)))
 
 (defn pred-and [x]
-  (fn [x] :-))
+  )
 
 (defn my-map [f a-seq]
   [:-])
