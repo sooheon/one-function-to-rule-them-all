@@ -1,10 +1,7 @@
-;; http://iloveponies.github.io/120-hour-epic-sax-marathon/one-function-to-rule-them-all.html
-(ns one-function-to-rule-themall)
+(ns one-function-to-rule-them-all)
 
 (defn concat-elements [a-seq]
-  (if (empty? a-seq)
-    '()
-    (reduce concat a-seq)))
+  (reduce concat [] a-seq))
 
 (defn str-cat [a-seq]
   (if (empty? a-seq)
@@ -74,5 +71,22 @@
   ([x y] (fn [p] (and (x p) (y p))))
   ([x y & more] (reduce pred-and (pred-and x y) more)))
 
-(defn my-map [f a-seq]
-  )
+(defn multi-first [seqs]
+  (reduce
+   (fn [acc a-seq] (conj acc (first a-seq)))
+   [(first (first seqs))]
+   (rest seqs)))
+
+(defn multi-rest [seqs]
+  (reduce
+   (fn [acc a-seq] (conj acc (rest a-seq)))
+   [(rest (first seqs))]
+   (rest seqs)))
+
+(defn my-map [f & seqs]
+  (loop [acc [] a-seqs seqs]
+    (if (some empty? a-seqs)
+      acc
+      (recur
+       (conj acc (apply f (multi-first a-seqs)))
+       (multi-rest a-seqs)))))
